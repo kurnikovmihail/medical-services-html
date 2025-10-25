@@ -1,16 +1,262 @@
-html,
-body {
+/* --- ОБЩИЕ СТИЛИ И ПЕРЕМЕННЫЕ --- */
+:root {
+  --color-white: #fff;
+  --color-gray-100: #f7fafc;
+  --color-gray-400: #a0aec0;
+  --color-gray-700: #4a5568;
+  --color-gray-800: #2d3748;
+  --color-gray-900: #1a202c;
+  --color-orange-600: #dd6b20;
+  --color-orange-500: #ed8936;
+  --color-green-800: #276749;
+  --doc-bg-light: #fff7d6;
+  --doc-bg-darker: #fffcef;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   scroll-behavior: smooth;
+  font-family: sans-serif;
+  background-color: var(--color-white);
+  color: var(--color-gray-900);
 }
 
-/* Кастомные классы из вашего Vue-компонента, 
-  которых нет в стандартном Tailwind
-*/
-.min-w-3xs {
-  /* Вы можете настроить это значение. 240px - разумное предположение. */
-  min-width: 240px;
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
-.max-w-95 {
+/* --- ОСНОВНАЯ РАЗМЕТКА --- */
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-content {
+  max-width: 1280px; /* соответствует max-w-5xl */
+  width: 100%;
+}
+
+.header {
+  padding: 32px 16px;
+}
+
+.main-title {
+  font-size: 1.875rem; /* 30px */
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 8px;
+}
+
+/* --- СЕКЦИЯ МЕДИЦИНСКИХ УСЛУГ (3 КАРТОЧКИ) --- */
+.services-section {
   max-width: 95%;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex; /* Мобильный вид: горизонтальный скролл */
+  gap: 24px;
+  overflow-x: auto;
+}
+
+.service-card {
+  min-width: 240px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.25rem; /* rounded-l */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+  height: 256px; /* h-64 */
+}
+
+.service-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.service-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-card-img {
+  transform: scale(1.05);
+}
+
+.service-card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  background: linear-gradient(0deg, rgba(41, 45, 58, 0.6), rgba(41, 45, 58, 0.6)),
+              linear-gradient(228.47deg, rgba(242, 101, 49, 0.4) 9.44%, rgba(0, 121, 52, 0.4) 89.9%);
+}
+
+.service-card-title {
+  color: var(--color-white);
+  font-weight: 600;
+  font-size: 1.125rem; /* 18px */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.service-card-text {
+  color: var(--color-gray-100);
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.4;
+}
+
+.service-card-button {
+  align-self: flex-start;
+  background-color: var(--color-orange-600);
+  color: var(--color-white);
+  font-weight: 500;
+  padding: 6px 20px;
+  border-radius: 9999px;
+  font-size: 0.875rem; /* 14px */
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease;
+}
+
+.service-card-button:hover {
+  background-color: var(--color-orange-500);
+}
+
+
+/* --- СЕКЦИЯ "ДРУГИЕ УСЛУГИ" --- */
+.other-services-section {
+  max-width: 1280px;
+  margin-top: 40px;
+  padding: 0 16px;
+}
+
+.other-services-subtitle {
+  font-size: 0.75rem; /* 12px */
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--color-gray-400);
+}
+
+.other-services-text {
+  color: var(--color-gray-700);
+  line-height: 1.6;
+  font-size: 0.875rem; /* 14px */
+}
+
+.highlight-orange {
+  color: var(--color-orange-600);
+}
+
+.other-services-link {
+  color: var(--color-green-800);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.other-services-link:hover {
+  text-decoration: underline;
+}
+
+/* --- СЕКЦИЯ С ДОКУМЕНТАМИ (5 БЛОКОВ) --- */
+.docs-section-wrapper {
+  margin-top: 40px;
+  padding: 0 16px;
+}
+
+.docs-section {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 колонка на мобильном */
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.doc-block {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  justify-content: flex-start;
+  padding: 32px 16px;
+  transition: background-color 0.2s ease;
+}
+
+.doc-block-light { background-color: var(--doc-bg-light); }
+.doc-block-darker { background-color: var(--doc-bg-darker); }
+
+.doc-block-img {
+  width: 64px;
+  height: 64px;
+  margin-right: 16px;
+  border-radius: 9999px;
+  object-fit: cover;
+}
+
+.doc-block-content {
+  flex: 1;
+}
+
+.doc-block-title {
+  color: var(--color-green-800);
+  font-weight: 600;
+  font-size: 1rem; /* 16px */
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.doc-block-text {
+  font-size: 0.875rem; /* 14px */
+  color: var(--color-gray-800);
+}
+
+
+/* --- АДАПТИВНОСТЬ (МЕДИА-ЗАПРОСЫ) --- */
+
+/* Планшеты (sm, 640px и больше) */
+@media (min-width: 640px) {
+  .main-title {
+    font-size: 2.25rem; /* 36px */
+  }
+
+  .services-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    overflow-x: visible;
+    max-width: 100%;
+  }
+
+  .other-services-text {
+    font-size: 1rem; /* 16px */
+  }
+
+  .docs-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .doc-block {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .doc-block-img {
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+}
+
+/* Ноутбуки (lg, 1024px и больше) */
+@media (min-width: 1024px) {
+  .services-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .docs-section {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
